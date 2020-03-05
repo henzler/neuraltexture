@@ -1,0 +1,9 @@
+build/
+dist/
+noise_cuda.egg-info/
+tf/
+trained_models/*
+
+*.sif
+.idea/
+train_neural_texture.sh

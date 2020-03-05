@@ -1,0 +1,1 @@
+wget -O ./trained_models/trained_models.zip https://geometry.cs.ucl.ac.uk/projects/2020/neuraltexture/trained_models.zip && unzip ./trained_models/trained_models.zip -d ./trained_models/ && rm ./trained_models/trained_models.zip

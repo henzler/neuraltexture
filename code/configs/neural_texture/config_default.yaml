@@ -1,0 +1,51 @@
+version_name: neuraltexture_wood_2d_single
+device: cuda
+n_workers: 8
+n_gpus: 1
+dim: 3
+noise:
+  octaves: 8
+logger:
+  log_files_every_n_iter: 1000
+  log_scalars_every_n_iter: 100
+  log_validation_every_n_epochs: 1
+image:
+  image_res: &image_res 128 # (height, width)
+texture:
+  e: &texture_e 64 # encoding size
+dataset:
+  name: datasets.images
+  path: '../datasets/wood'
+  use_single: 0 # -1 = all, 0,1,2 for single
+system:
+  block_main:
+    model_texture_encoder:
+      model_params:
+        name: models.neural_texture.encoder
+        type: 'ResNet'
+        shape_in:  [[3, *image_res, *image_res]]
+        bottleneck_size: 8
+    model_texture_mlp:
+      model_params:
+        name: models.neural_texture.mlp
+        type: 'MLP'
+        n_max_features: 128
+        n_blocks: 4
+        dropout_ratio: 0.0
+        non_linearity: 'relu'
+        bias: True
+        encoding: *texture_e
+    optimizer_params:
+      name: 'adam'
+      lr: 0.0001
+      weight_decay: 0.0001
+    scheduler_params:
+      name: 'none'
+    loss_params:
+      style_weight: 1.0
+      style_type: 'mse'
+train:
+  epochs: 3
+  bs: 16
+  accumulate_grad_batches: 1
+  seed: 41127
