@@ -15,7 +15,8 @@ from pytorch_lightning.logging import TestTubeLogger
 yaml.add_constructor(u'tag:yaml.org,2002:map', from_yaml)
 yaml.add_constructor(u'tag:yaml.org,2002:omap', from_yaml)
 
-from pytorch_lightning.logging import LightningLoggerBase, rank_zero_only
+from pytorch_lightning.logging import LightningLoggerBase#, rank_zero_only
+from pytorch_lightning.loggers.test_tube import rank_zero_only
 
 class Logger(TestTubeLogger):
     def __init__(self, param):

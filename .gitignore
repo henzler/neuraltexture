@@ -4,6 +4,8 @@ noise_cuda.egg-info/
 tf/
 trained_models/*
 
+*.pyc
 *.sif
 .idea/
 train_neural_texture.sh
+__pycache__
