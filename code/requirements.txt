@@ -1,13 +1,13 @@
 torch==1.4.0
 torchvision==0.5.0
-pytorch-lightning
+pytorch-lightning==0.7.5
 numpy
 matplotlib
 scikit-image
 scipy
 torchsummary
 pyyaml
-tensorflow==1.15.2
+#tensorflow==1.15.2
 tensorboard==1.15
 attrdict
 opencv-python
@@ -16,4 +16,4 @@ orderedattrdict
 imageio
 kornia
 jupyter
-test_tube
+test_tube==0.7.5

@@ -2,7 +2,7 @@ version_name: neuraltexture_wood_2d_single
 device: cuda
 n_workers: 8
 n_gpus: 1
-dim: 3
+dim: 2
 noise:
   octaves: 8
 logger:
