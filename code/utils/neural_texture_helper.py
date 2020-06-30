@@ -102,9 +102,14 @@ def transform_coord(coord, t_coeff, dim):
 
     bs, octaves, h, w, dim = coord.size()
 
-    t_coeff = t_coeff.reshape(bs, octaves, dim, dim).unsqueeze(2).unsqueeze(2)
+    inter = (t_coeff.shape[2] != 1)
+    if inter:
+        t_coeff = t_coeff.reshape(bs, octaves, dim, dim, h, w)
+        t_coeff = t_coeff.permute(0, 1, 4, 5, 2, 3)
+    else:
+        t_coeff = t_coeff.reshape(bs, octaves, dim, dim).unsqueeze(2).unsqueeze(2)
 
-    t_coeff = t_coeff.expand(bs, octaves, h, w, dim, dim)
+        t_coeff = t_coeff.expand(bs, octaves, h, w, dim, dim)
     t_coeff = t_coeff.reshape(bs * octaves, h, w, dim, dim)
 
     transform_matrix = identity_matrix.expand(bs * octaves, dim, dim)

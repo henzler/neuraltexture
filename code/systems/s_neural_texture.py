@@ -65,8 +65,9 @@ class SystemNeuralTexture(CoreSystem):
 
         transform_coeff, z_encoding = torch.split(weights, [self.p.texture.t, self.p.texture.e], dim=1)
 
-        z_encoding = z_encoding.view(bs, self.p.texture.e, 1, 1)
-        z_encoding = z_encoding.expand(bs, self.p.texture.e, self.image_res, self.image_res)
+        if z_encoding.shape[2] == 1:
+            z_encoding = z_encoding.view(bs, self.p.texture.e, 1, 1)
+            z_encoding = z_encoding.expand(bs, self.p.texture.e, self.image_res, self.image_res)
 
         position = position.unsqueeze(1).expand(bs, self.p.noise.octaves, self.p.dim, h, w)
         position = position.permute(0, 1, 3, 4, 2)
@@ -251,7 +252,7 @@ class SystemNeuralTexture(CoreSystem):
 
                     z_texture_interpolated = torch.stack(weight_list, dim=2).unsqueeze(-2)
 
-                    z_texture_interpolated = z_texture_interpolated[:, :-2]
+                    # z_texture_interpolated = z_texture_interpolated[:, :-2]
                     latent_space = z_texture_interpolated.shape[1]
                     z_texture_interpolated = z_texture_interpolated.expand(1, latent_space, self.p.image.image_res, self.p.image.image_res)
 
